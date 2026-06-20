@@ -1,0 +1,652 @@
+/* ===================================================
+   TALLER MECÁNICO — Sistema de diseño
+   Fuentes: solo del sistema operativo, sin externos
+   =================================================== */
+
+:root {
+  --fondo:        #0f1117;
+  --superficie:   #161923;
+  --tarjeta:      #1d2133;
+  --borde:        #2a3050;
+  --borde-lit:    #394270;
+
+  --ambar:        #e8b84b;
+  --ambar-dim:    #9c7a22;
+  --ambar-fondo:  rgba(232,184,75,0.10);
+
+  --texto:        #eef0f7;
+  --texto-sub:    #8890a8;
+  --texto-muted:  #4a5270;
+
+  --verde:  #48c774;
+  --rojo:   #e84b4b;
+  --azul:   #4b9fe8;
+  --naranja:#e88d2a;
+
+  /* Colores por estado */
+  --c-RECIBIDO:      #7c8db5;
+  --c-EN_REVISION:   #4b9fe8;
+  --c-EN_REPARACION: #e88d2a;
+  --c-LISTO:         #48c774;
+  --c-ENTREGADO:     #555d7c;
+
+  /* Tipografía — fuentes del sistema, sin descarga */
+  --fuente: system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  --fuente-mono: 'Consolas', 'Courier New', monospace;
+
+  --radio: 8px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body, #root { height: 100%; }
+
+body {
+  font-family: var(--fuente);
+  background: var(--fondo);
+  color: var(--texto);
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===================================================
+   NAV
+   =================================================== */
+
+.nav {
+  display: flex;
+  align-items: center;
+  height: 54px;
+  padding: 0 20px;
+  background: var(--superficie);
+  border-bottom: 1px solid var(--borde);
+  gap: 4px;
+}
+
+.nav-marca {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ambar);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  margin-right: 24px;
+  flex-shrink: 0;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: var(--radio);
+  color: var(--texto-sub);
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 13px;
+  transition: background .12s, color .12s;
+}
+.nav-link:hover { background: var(--ambar-fondo); color: var(--texto); }
+.nav-link.activo {
+  background: var(--ambar-fondo);
+  color: var(--ambar);
+  border-bottom: 2px solid var(--ambar);
+  border-radius: var(--radio) var(--radio) 0 0;
+}
+
+/* ===================================================
+   LAYOUT
+   =================================================== */
+
+.app { display: flex; flex-direction: column; min-height: 100vh; }
+
+.pagina {
+  flex: 1;
+  padding: 24px 20px;
+  max-width: 1060px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.pagina-cabecera { margin-bottom: 20px; }
+.pagina-cabecera h1 { font-size: 22px; font-weight: 700; color: var(--texto); }
+.pagina-cabecera p  { font-size: 13px; color: var(--texto-sub); margin-top: 3px; }
+
+/* ===================================================
+   TARJETA
+   =================================================== */
+
+.card {
+  background: var(--tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 18px 20px;
+}
+
+.card-titulo {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--texto);
+  margin-bottom: 14px;
+}
+
+/* ===================================================
+   FORMULARIOS
+   =================================================== */
+
+.campo { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
+
+.campo label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--texto-sub);
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  background: var(--fondo);
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  padding: 9px 12px;
+  color: var(--texto);
+  font-family: var(--fuente);
+  font-size: 14px;
+  outline: none;
+  transition: border-color .12s;
+  width: 100%;
+}
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus { border-color: var(--ambar); }
+
+.campo textarea { resize: vertical; min-height: 68px; }
+.campo select option { background: var(--tarjeta); }
+
+.fila { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+/* ===================================================
+   BOTONES
+   =================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-family: var(--fuente);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity .12s, transform .08s;
+  white-space: nowrap;
+}
+.btn:hover   { opacity: .85; }
+.btn:active  { transform: scale(.97); }
+.btn:disabled{ opacity: .4; cursor: not-allowed; transform: none; }
+
+.btn-primario  { background: var(--ambar); color: #0f1117; }
+.btn-secundario{ background: var(--superficie); color: var(--texto); border: 1px solid var(--borde-lit); }
+.btn-peligro   { background: var(--rojo); color: #fff; }
+.btn-ghost     { background: transparent; color: var(--texto-sub); border: 1px solid var(--borde); }
+.btn-ghost:hover { color: var(--texto); border-color: var(--borde-lit); }
+.btn-sm        { padding: 4px 11px; font-size: 12px; }
+.btn-bloque    { width: 100%; }
+
+/* ===================================================
+   BADGE DE ESTADO
+   =================================================== */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 9px;
+  border-radius: 100px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+.badge-RECIBIDO     { background:rgba(124,141,181,.15); color:var(--c-RECIBIDO); }
+.badge-EN_REVISION  { background:rgba(75,159,232,.15);  color:var(--c-EN_REVISION); }
+.badge-EN_REPARACION{ background:rgba(232,141,42,.15);  color:var(--c-EN_REPARACION); }
+.badge-LISTO        { background:rgba(72,199,116,.18);  color:var(--c-LISTO); }
+.badge-ENTREGADO    { background:rgba(85,93,124,.15);   color:var(--c-ENTREGADO); }
+
+/* ===================================================
+   CÓDIGO DE ORDEN
+   =================================================== */
+
+.codigo {
+  font-family: var(--fuente-mono);
+  font-weight: 700;
+  color: var(--ambar);
+  letter-spacing: .08em;
+}
+
+/* ===================================================
+   FEEDBACK
+   =================================================== */
+
+.error {
+  display: flex;
+  gap: 7px;
+  align-items: flex-start;
+  background: rgba(232,75,75,.08);
+  border: 1px solid rgba(232,75,75,.3);
+  border-radius: 6px;
+  padding: 9px 12px;
+  color: var(--rojo);
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+.spinner-wrap { display: flex; justify-content: center; padding: 32px; }
+.spinner {
+  width: 26px; height: 26px;
+  border: 3px solid var(--borde);
+  border-top-color: var(--ambar);
+  border-radius: 50%;
+  animation: gira .7s linear infinite;
+}
+@keyframes gira { to { transform: rotate(360deg); } }
+
+.vacio {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--texto-muted);
+  font-size: 13px;
+}
+.vacio-icono { font-size: 38px; margin-bottom: 10px; opacity:.4; }
+
+/* ===================================================
+   STEPPER
+   =================================================== */
+
+.stepper {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2px;
+  margin-bottom: 22px;
+}
+.paso {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px;
+  border-radius: 6px;
+}
+.paso-num {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--borde-lit);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700;
+  color: var(--texto-muted);
+  flex-shrink: 0;
+}
+.paso-texto { font-size: 13px; font-weight: 600; color: var(--texto-muted); white-space: nowrap; }
+.paso-flecha { color: var(--texto-muted); font-size: 11px; padding: 0 2px; }
+
+.paso.activo .paso-num   { background: var(--ambar); border-color: var(--ambar); color: #0f1117; }
+.paso.activo .paso-texto { color: var(--ambar); }
+.paso.hecho .paso-num    { background: rgba(72,199,116,.15); border-color: var(--verde); color: var(--verde); }
+.paso.hecho .paso-texto  { color: var(--verde); }
+
+/* ===================================================
+   LAYOUT RECEPCIÓN
+   =================================================== */
+
+.recepcion-grid {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 18px;
+  align-items: start;
+}
+@media(max-width:860px){
+  .recepcion-grid { grid-template-columns: 1fr; }
+  .fila { grid-template-columns: 1fr; }
+}
+
+/* ===================================================
+   BUSCADOR
+   =================================================== */
+
+.buscador { display: flex; gap: 8px; align-items: flex-end; }
+.buscador .campo { flex: 1; margin-bottom: 0; }
+
+.resultado-ok {
+  margin-top: 10px;
+  padding: 10px 13px;
+  background: rgba(72,199,116,.07);
+  border: 1px solid rgba(72,199,116,.25);
+  border-radius: 6px;
+  font-size: 13px;
+  color: var(--texto);
+}
+.resultado-ok strong { color: var(--verde); }
+
+/* ===================================================
+   CATÁLOGO DE SERVICIOS
+   =================================================== */
+
+.catalogo-filtro {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  gap: 10px;
+}
+.catalogo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+.servicio-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  padding: 10px 13px;
+  cursor: pointer;
+  transition: border-color .12s, background .12s;
+}
+.servicio-card:hover { border-color: var(--ambar-dim); background: var(--ambar-fondo); }
+.servicio-nombre  { font-size: 13px; font-weight: 600; color: var(--texto); }
+.servicio-cat     { font-size: 11px; color: var(--texto-muted); margin-top: 2px; }
+.servicio-precio  { font-size: 14px; font-weight: 700; color: var(--ambar); white-space: nowrap; }
+
+/* ===================================================
+   RESUMEN DE ORDEN (panel lateral)
+   =================================================== */
+
+.resumen {
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  overflow: hidden;
+}
+.resumen-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 15px;
+  background: var(--tarjeta);
+  border-bottom: 1px solid var(--borde);
+  font-size: 13px;
+  font-weight: 700;
+}
+.resumen-body { padding: 10px 15px; display: flex; flex-direction: column; gap: 5px; }
+.resumen-linea {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  padding: 3px 0;
+}
+.resumen-linea-nombre { color: var(--texto); font-weight: 500; }
+.resumen-linea-sub    { font-size: 11px; color: var(--texto-sub); }
+.resumen-foot {
+  border-top: 1px solid var(--borde);
+  padding: 11px 15px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 15px;
+}
+.resumen-foot-total { color: var(--ambar); }
+.btn-quitar {
+  background: transparent;
+  border: none;
+  color: var(--rojo);
+  cursor: pointer;
+  font-size: 13px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  opacity: .6;
+  transition: opacity .12s;
+}
+.btn-quitar:hover { opacity: 1; }
+
+/* ===================================================
+   EXITO (código final de recepción)
+   =================================================== */
+
+.exito {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px 24px;
+  gap: 14px;
+}
+.exito-icono { font-size: 52px; }
+.exito-titulo { font-size: 24px; font-weight: 700; }
+.exito-codigo {
+  font-family: var(--fuente-mono);
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--ambar);
+  background: var(--ambar-fondo);
+  border: 1px solid var(--ambar-dim);
+  border-radius: var(--radio);
+  padding: 10px 28px;
+  letter-spacing: .12em;
+}
+.exito-info { font-size: 13px; color: var(--texto-sub); line-height: 1.8; }
+
+/* ===================================================
+   TABS (Vista Taller)
+   =================================================== */
+
+.tabs {
+  display: flex;
+  gap: 2px;
+  border-bottom: 1px solid var(--borde);
+  margin-bottom: 18px;
+}
+.tab {
+  padding: 7px 16px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  font-family: var(--fuente);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--texto-sub);
+  cursor: pointer;
+  transition: color .12s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.tab:hover { color: var(--texto); }
+.tab.activo { color: var(--ambar); border-bottom-color: var(--ambar); }
+
+.tab-n {
+  background: var(--ambar-fondo);
+  color: var(--ambar);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 100px;
+}
+
+/* ===================================================
+   TARJETA DE ORDEN (Taller)
+   =================================================== */
+
+.orden-card {
+  background: var(--tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+.orden-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.orden-head-izq { display: flex; align-items: center; gap: 8px; }
+.orden-datos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.dato { display: flex; flex-direction: column; gap: 1px; }
+.dato-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--texto-muted); }
+.dato-valor { font-size: 13px; font-weight: 500; color: var(--texto); }
+
+.servicios-lista { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.servicio-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 9px;
+  background: var(--superficie);
+  border-radius: 5px;
+  font-size: 12px;
+}
+.servicio-item-nombre { color: var(--texto); }
+.servicio-item-meta   { color: var(--texto-sub); display: flex; gap: 8px; }
+
+.orden-total {
+  display: flex;
+  justify-content: flex-end;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ambar);
+  padding-top: 7px;
+  border-top: 1px solid var(--borde);
+}
+.orden-acciones { display: flex; gap: 7px; flex-wrap: wrap; }
+
+.separador { height: 1px; background: var(--borde); margin: 4px 0; }
+
+/* ===================================================
+   GRID DE ÓRDENES
+   =================================================== */
+
+.ordenes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 14px;
+}
+
+/* ===================================================
+   PANTALLA DE RECOGIDA
+   =================================================== */
+
+.pantalla { min-height: 100vh; background: var(--fondo); display: flex; flex-direction: column; }
+
+.pantalla-head {
+  padding: 18px 28px;
+  border-bottom: 1px solid var(--borde);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--superficie);
+}
+.pantalla-titulo { font-size: 22px; font-weight: 700; color: var(--ambar); letter-spacing: .04em; text-transform: uppercase; }
+.pantalla-sub    { font-size: 12px; color: var(--texto-sub); margin-top: 2px; }
+.pantalla-reloj  { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--texto-muted); }
+
+.pantalla-body { flex: 1; padding: 36px 28px; }
+
+.pantalla-vacia {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--texto-muted);
+  gap: 10px;
+  padding: 60px;
+  text-align: center;
+}
+.pantalla-vacia-icono { font-size: 56px; opacity:.25; }
+.pantalla-vacia p { font-size: 16px; }
+
+.pantalla-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 18px;
+}
+
+.pantalla-card {
+  background: var(--tarjeta);
+  border: 2px solid var(--c-LISTO);
+  border-radius: 12px;
+  padding: 26px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  box-shadow: 0 0 20px rgba(72,199,116,.07);
+  animation: entrar .3s ease;
+}
+@keyframes entrar { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform: none; } }
+
+.pantalla-card-listo {
+  background: rgba(72,199,116,.12);
+  color: var(--c-LISTO);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+.pantalla-card-codigo {
+  font-family: var(--fuente-mono);
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--c-LISTO);
+  letter-spacing: .1em;
+}
+.pantalla-card-info { font-size: 12px; color: var(--texto-sub); line-height: 1.7; }
+
+/* Utilidades */
+.mt-10 { margin-top: 10px; }
+.mt-14 { margin-top: 14px; }
+.row   { display: flex; gap: 8px; align-items: center; }
+.color-sub { color: var(--texto-sub); }
+
+/* ===================================================
+   PANTALLA DOS COLUMNAS — responsive
+   =================================================== */
+
+@media (max-width: 700px) {
+  .pantalla > div[style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Campo con error inline */
+.campo-error {
+  font-size: 11px;
+  color: var(--rojo);
+  margin-top: 2px;
+}
+
+/* Nav responsive */
+@media (max-width: 768px) {
+  .nav { flex-wrap: wrap; height: auto; padding: 8px 12px; gap: 6px; }
+  .nav-marca { width: 100%; }
+}
