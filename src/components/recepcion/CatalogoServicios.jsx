@@ -3,7 +3,7 @@ import { servicioApi, categoriaApi, ordenApi } from '../../services/api'
 import { ErrorMsg, Spinner } from '../shared/Shared'
 
 /**
- * Paso 4: catálogo de servicios filtrable por categoría.
+ * Catálogo de servicios filtrable por categoría.
  * Click en una tarjeta → POST /api/ordenes/{id}/servicios
  * Props: ordenId, onActualizada(orden)
  */

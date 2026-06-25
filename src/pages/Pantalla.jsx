@@ -86,7 +86,7 @@ export default function Pantalla() {
         </p>
       )}
 
-      <div style={{ flex: 1, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0, minHeight: 0 }}>
+      <div className="pantalla-dos-col" style={{ flex: 1, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0, minHeight: 0 }}>
 
         {/* Columna izquierda: En proceso */}
         <div style={{ borderRight: '1px solid var(--borde)', padding: '24px 24px', overflowY: 'auto' }}>

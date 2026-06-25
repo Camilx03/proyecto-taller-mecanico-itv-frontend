@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { ordenApi } from '../services/api'
 import TarjetaOrden from '../components/taller/TarjetaOrden'
-import { Spinner } from '../components/shared/Shared'
+import { SkeletonGrid } from '../components/shared/Shared'
 
 const TABS = [
   { id: 'RECIBIDO',      etiqueta: 'Recibidos' },
@@ -109,7 +109,7 @@ export default function Taller() {
 
       {/* Solo spinner en la carga inicial, nunca en el refresco */}
       {cargandoInicial ? (
-        <Spinner />
+        <SkeletonGrid />
       ) : error ? (
         <div className="vacio">
           <div className="vacio-icono">⚠</div>

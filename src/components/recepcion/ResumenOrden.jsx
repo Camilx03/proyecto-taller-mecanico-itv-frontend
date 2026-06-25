@@ -3,7 +3,7 @@ import { ordenApi } from '../../services/api'
 import { ErrorMsg } from '../shared/Shared'
 
 /**
- * Panel lateral: lista de servicios de la orden activa + total.
+ * Lista de servicios de la orden activa + total.
  * Props: orden, onActualizada(orden)
  */
 export default function ResumenOrden({ orden, onActualizada }) {

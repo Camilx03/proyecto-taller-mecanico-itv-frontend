@@ -3,7 +3,7 @@ import { clienteApi } from '../../services/api'
 import { ErrorMsg } from '../shared/Shared'
 
 /**
- * Paso 1 de Recepción: busca cliente por DNI.
+ * Busca cliente por DNI.
  * Si no existe, ofrece formulario para crearlo.
  * Props: onConfirmado(cliente)
  */

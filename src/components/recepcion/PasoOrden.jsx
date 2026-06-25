@@ -3,7 +3,7 @@ import { puestoApi, ordenApi } from '../../services/api'
 import { ErrorMsg, Spinner } from '../shared/Shared'
 
 /**
- * Paso 3: crea la orden de trabajo.
+ * Crea la orden de trabajo.
  * Props: vehiculoId, onCreada(orden)
  */
 export default function PasoOrden({ vehiculoId, onCreada }) {
