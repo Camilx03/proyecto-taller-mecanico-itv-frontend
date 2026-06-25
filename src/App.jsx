@@ -6,7 +6,7 @@ import Pantalla  from './pages/Pantalla'
 import { ordenApi } from './services/api'
 import { BadgeEstado } from './components/shared/Shared'
 
-// ── Indicador de conexión con el backend ──
+// ── Indicador de conexión con el backend ───────────────────
 
 function useConexion() {
   const [conectado, setConectado] = useState(true)
@@ -25,7 +25,7 @@ function useConexion() {
   return conectado
 }
 
-// ── Buscador global por código de orden ──
+// ── Buscador global por código de orden ────────────────────
 
 const ETIQUETAS_ESTADO = {
   RECIBIDO: 'Recibido — en espera',
@@ -60,7 +60,7 @@ function BuscadorGlobal() {
 
   return (
     <>
-      <form onSubmit={buscar} style={{ display: 'flex', gap: 6, marginLeft: 'auto' }}>
+      <form onSubmit={buscar} style={{ display: 'flex', gap: 6, marginLeft: 'auto' }} className="nav-busqueda">
         <input
           value={codigo}
           onChange={e => setCodigo(e.target.value.toUpperCase())}
@@ -118,7 +118,7 @@ function BuscadorGlobal() {
   )
 }
 
-// ── App principal ──
+// ── App principal ──────────────────────────────────────────
 
 export default function App() {
   const conectado = useConexion()
@@ -132,8 +132,7 @@ export default function App() {
           <NavLink to="/taller"     className={({ isActive }) => `nav-link${isActive ? ' activo' : ''}`}>🔩 Taller</NavLink>
           <NavLink to="/pantalla"   className={({ isActive }) => `nav-link${isActive ? ' activo' : ''}`}>🔔 Pantalla</NavLink>
           <BuscadorGlobal />
-          {/* Indicador de conexión */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginLeft: 12, fontSize: 12,
+          <div className="nav-indicator" style={{ display: 'flex', alignItems: 'center', gap: 5, marginLeft: 12, fontSize: 12,
             color: conectado ? 'var(--verde)' : 'var(--rojo)', flexShrink: 0 }}>
             <span style={{
               width: 8, height: 8, borderRadius: '50%',

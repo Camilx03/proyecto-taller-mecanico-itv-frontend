@@ -9,6 +9,10 @@ const AVANCE = {
   EN_REPARACION: 'Marcar listo',
   LISTO:         'Marcar entregado',
 }
+const ETIQUETAS_ESTADO = {
+  RECIBIDO: 'Recibido', EN_REVISION: 'En Revisión',
+  EN_REPARACION: 'En Reparación', LISTO: 'Listo', ENTREGADO: 'Entregado',
+}
 
 function tiempoTranscurrido(fechaEntrada) {
   if (!fechaEntrada) return null
@@ -217,12 +221,13 @@ function CatalogoInline({ ordenId, serviciosActuales, onActualizada }) {
 // lo cual ya está implementado en el catálogo de servicios de abajo.
 
 export default function TarjetaOrden({ orden: ordenInicial, onActualizada }) {
-  const [orden,    setOrden]    = useState(ordenInicial)
-  const [abierta,  setAbierta]  = useState(false)
-  const [verCat,   setVerCat]   = useState(false)
-  const [cargando, setCargando] = useState(false)
-  const [quitando, setQuitando] = useState(null)
-  const [error,    setError]    = useState(null)
+  const [orden,      setOrden]      = useState(ordenInicial)
+  const [abierta,    setAbierta]    = useState(false)
+  const [verCat,     setVerCat]     = useState(false)
+  const [cargando,   setCargando]   = useState(false)
+  const [quitando,   setQuitando]   = useState(null)
+  const [error,      setError]      = useState(null)
+  const [confirmar,  setConfirmar]  = useState(false) // confirmación de cambio de estado
 
   useEffect(() => { setOrden(ordenInicial) }, [ordenInicial])
 
@@ -243,7 +248,10 @@ export default function TarjetaOrden({ orden: ordenInicial, onActualizada }) {
   async function avanzar() {
     if (!siguiente) return
     setCargando(true); setError(null)
-    try { actualizar(await ordenApi.cambiarEstado(orden.id, siguiente)) }
+    try {
+      actualizar(await ordenApi.cambiarEstado(orden.id, siguiente))
+      setConfirmar(false)
+    }
     catch (e) { setError(e.message) }
     finally { setCargando(false) }
   }
@@ -380,9 +388,23 @@ export default function TarjetaOrden({ orden: ordenInicial, onActualizada }) {
 
       {siguiente && (
         <div className="orden-acciones">
-          <button className="btn btn-primario" onClick={avanzar} disabled={cargando}>
-            {cargando ? 'Actualizando...' : `${AVANCE[orden.estado]} →`}
-          </button>
+          {!confirmar ? (
+            <button className="btn btn-primario" onClick={() => setConfirmar(true)}>
+              {AVANCE[orden.estado]} →
+            </button>
+          ) : (
+            <div className="confirmar-box">
+              <span className="confirmar-texto">
+                ¿Cambiar a <strong>{ETIQUETAS_ESTADO[siguiente]}</strong>?
+              </span>
+              <button className="btn btn-primario btn-sm" onClick={avanzar} disabled={cargando}>
+                {cargando ? '...' : 'Confirmar'}
+              </button>
+              <button className="btn btn-ghost btn-sm" onClick={() => setConfirmar(false)} disabled={cargando}>
+                Cancelar
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>

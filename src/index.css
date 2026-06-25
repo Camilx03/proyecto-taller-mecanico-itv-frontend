@@ -650,3 +650,191 @@ body {
   .nav { flex-wrap: wrap; height: auto; padding: 8px 12px; gap: 6px; }
   .nav-marca { width: 100%; }
 }
+
+/* ===================================================
+   SKELETON DE CARGA
+   =================================================== */
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--tarjeta) 25%,
+    var(--borde-lit) 50%,
+    var(--tarjeta) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: 6px;
+}
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.skeleton-card {
+  background: var(--tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ===================================================
+   CONFIRMACIÓN DE ESTADO
+   =================================================== */
+
+.confirmar-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 10px 14px;
+  background: var(--ambar-fondo);
+  border: 1px solid var(--ambar-dim);
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--texto);
+}
+.confirmar-texto { font-weight: 600; flex: 1; }
+
+/* ===================================================
+   MODO TOGGLE — Recepción (Entrada / Entrega)
+   =================================================== */
+
+.modo-toggle {
+  display: flex;
+  gap: 4px;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  padding: 4px;
+  margin-bottom: 20px;
+  width: fit-content;
+}
+.modo-btn {
+  padding: 7px 20px;
+  border: none;
+  border-radius: 6px;
+  font-family: var(--fuente);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  background: transparent;
+  color: var(--texto-sub);
+  transition: background .12s, color .12s;
+}
+.modo-btn.activo {
+  background: var(--ambar);
+  color: #0f1117;
+}
+.modo-btn:hover:not(.activo) { color: var(--texto); }
+
+/* ===================================================
+   IMPRESIÓN
+   =================================================== */
+
+@media print {
+  body * { visibility: hidden; }
+  .print-ticket, .print-ticket * { visibility: visible; }
+  .print-ticket {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    color: black;
+    font-family: monospace;
+    text-align: center;
+    padding: 40px;
+  }
+  .print-ticket .print-codigo-grande {
+    font-size: 64px;
+    font-weight: 900;
+    letter-spacing: .1em;
+    margin: 20px 0;
+  }
+  .print-ticket .print-info { font-size: 16px; line-height: 2; }
+  .print-ticket .print-titulo { font-size: 22px; font-weight: bold; margin-bottom: 8px; }
+}
+
+/* ===================================================
+   RESPONSIVE — MOBILE FIRST
+   Breakpoints: mobile <640, tablet 640-1024, desktop >1024
+   =================================================== */
+
+/* ── Mobile ── */
+@media (max-width: 640px) {
+  /* Nav */
+  .nav {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 10px 14px;
+    gap: 4px;
+  }
+  .nav-marca {
+    font-size: 15px;
+    margin-right: 0;
+    flex: 1;
+  }
+  .nav-link {
+    padding: 4px 10px;
+    font-size: 12px;
+  }
+  .nav-busqueda { display: none; }
+  .nav-indicator span:last-child { display: none; }
+
+  /* Página */
+  .pagina { padding: 16px 12px; }
+
+  /* Formularios */
+  .fila { grid-template-columns: 1fr; }
+  .recepcion-grid { grid-template-columns: 1fr; }
+
+  /* Stepper — solo iconos en móvil */
+  .paso-texto { display: none; }
+  .paso-flecha { margin: 0 2px; }
+
+  /* Taller */
+  .ordenes-grid { grid-template-columns: 1fr; }
+  .tabs { gap: 0; overflow-x: auto; padding-bottom: 0; }
+  .tab { padding: 6px 10px; font-size: 12px; }
+  .orden-datos { gap: 10px; }
+  .dato-label { font-size: 9px; }
+  .dato-valor { font-size: 12px; }
+
+  /* Pantalla */
+  .pantalla-head {
+    flex-direction: column;
+    gap: 8px;
+    padding: 14px 16px;
+  }
+  .pantalla-titulo { font-size: 18px; }
+  .pantalla-dos-col {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Exito */
+  .exito-codigo { font-size: 28px; padding: 8px 18px; }
+  .exito-titulo { font-size: 20px; }
+}
+
+/* ── Tablet ── */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .pagina { padding: 20px 16px; }
+  .ordenes-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+  .recepcion-grid { grid-template-columns: 1fr 260px; }
+  .nav-busqueda input { width: 150px; }
+
+  .pantalla-dos-col {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+/* ── Desktop ── */
+@media (min-width: 1025px) {
+  .ordenes-grid { grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); }
+}
