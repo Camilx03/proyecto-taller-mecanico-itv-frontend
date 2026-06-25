@@ -27,7 +27,7 @@ function tipoOrden(codigo) {
   return codigo?.startsWith('ITV') ? 'ITV' : 'TALLER'
 }
 
-// ── Editor de observaciones ─────────────────────────────────
+// ── Editor de observaciones ──
 
 function Observaciones({ orden, puedeEditar, onActualizada }) {
   const [editando,  setEditando]  = useState(false)
@@ -90,7 +90,7 @@ function Observaciones({ orden, puedeEditar, onActualizada }) {
   )
 }
 
-// ── Catálogo inline con selector de cantidad ───────────────
+// ── Catálogo inline con selector de cantidad ──
 
 function CatalogoInline({ ordenId, serviciosActuales, onActualizada }) {
   const [servicios,  setServicios]  = useState([])
@@ -210,7 +210,7 @@ function CatalogoInline({ ordenId, serviciosActuales, onActualizada }) {
   )
 }
 
-// ── Tarjeta de orden ───────────────────────────────────────
+// ── Tarjeta de orden ──
 // NOTA: la eliminación de la orden completa no está disponible porque
 // el backend no expone DELETE /api/ordenes/{id}. Lo único soportado
 // para "quitar" algo es eliminar un servicio individual de la orden,

@@ -6,7 +6,7 @@ import Pantalla  from './pages/Pantalla'
 import { ordenApi } from './services/api'
 import { BadgeEstado } from './components/shared/Shared'
 
-// ── Indicador de conexión con el backend ───────────────────
+// ── Indicador de conexión con el backend ──
 
 function useConexion() {
   const [conectado, setConectado] = useState(true)
@@ -25,7 +25,7 @@ function useConexion() {
   return conectado
 }
 
-// ── Buscador global por código de orden ────────────────────
+// ── Buscador global por código de orden ──
 
 const ETIQUETAS_ESTADO = {
   RECIBIDO: 'Recibido — en espera',
@@ -118,7 +118,7 @@ function BuscadorGlobal() {
   )
 }
 
-// ── App principal ──────────────────────────────────────────
+// ── App principal ──
 
 export default function App() {
   const conectado = useConexion()

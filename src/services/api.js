@@ -8,7 +8,7 @@
 
 const URL_BASE = '/api'
 
-// ─── utilidad interna ─────────────────────────────────────────
+// ─── utilidad interna ──
 
 // Tiempo máximo de espera por petición. Si la BD está caída, el backend
 // puede tardar mucho en devolver el error de conexión a MySQL — con esto
@@ -52,7 +52,7 @@ async function peticion(url, opciones = {}) {
 
 const JSON_HEADERS = { 'Content-Type': 'application/json' }
 
-// ─── CLIENTES ─────────────────────────────────────────────────
+// ─── CLIENTES ──
 
 export const clienteApi = {
   listar:   ()      => peticion(`${URL_BASE}/clientes`),
@@ -62,7 +62,7 @@ export const clienteApi = {
   actualizar: (id, dto) => peticion(`${URL_BASE}/clientes/${id}`, { method: 'PUT', headers: JSON_HEADERS, body: JSON.stringify(dto) }),
 }
 
-// ─── VEHÍCULOS ────────────────────────────────────────────────
+// ─── VEHÍCULOS ──
 
 export const vehiculoApi = {
   listar:          ()          => peticion(`${URL_BASE}/vehiculos`),
@@ -70,7 +70,7 @@ export const vehiculoApi = {
   crear:           (dto)       => peticion(`${URL_BASE}/vehiculos`, { method: 'POST', headers: JSON_HEADERS, body: JSON.stringify(dto) }),
 }
 
-// ─── SERVICIOS ────────────────────────────────────────────────
+// ─── SERVICIOS ──
 
 export const servicioApi = {
   listar: ({ activo, categoriaId } = {}) => {
@@ -82,19 +82,19 @@ export const servicioApi = {
   },
 }
 
-// ─── CATEGORÍAS ───────────────────────────────────────────────
+// ─── CATEGORÍAS ──
 
 export const categoriaApi = {
   listar: () => peticion(`${URL_BASE}/categorias`),
 }
 
-// ─── PUESTOS ──────────────────────────────────────────────────
+// ─── PUESTOS ──
 
 export const puestoApi = {
   listar: () => peticion(`${URL_BASE}/puestos`),
 }
 
-// ─── ÓRDENES ──────────────────────────────────────────────────
+// ─── ÓRDENES ──
 
 export const ordenApi = {
   listar:       (estado)        => peticion(`${URL_BASE}/ordenes${estado ? `?estado=${estado}` : ''}`),

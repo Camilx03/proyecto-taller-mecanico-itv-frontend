@@ -1,15 +1,15 @@
-// ─── ErrorMsg ────────────────────────────────────────────────
+// ─── ErrorMsg ──
 export function ErrorMsg({ msg }) {
   if (!msg) return null
   return <div className="error"><span>⚠</span><span>{msg}</span></div>
 }
 
-// ─── Spinner ─────────────────────────────────────────────────
+// ─── Spinner ──
 export function Spinner() {
   return <div className="spinner-wrap"><div className="spinner" /></div>
 }
 
-// ─── BadgeEstado ─────────────────────────────────────────────
+// ─── BadgeEstado ──
 const ETIQUETAS = {
   RECIBIDO:       'Recibido',
   EN_REVISION:    'En Revisión',

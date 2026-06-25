@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { vehiculoApi, clienteApi } from '../../services/api'
 import { ErrorMsg } from '../shared/Shared'
 
-// ── Cálculo automático de la letra del DNI ──────────────────
+// ── Cálculo automático de la letra del DNI ──
 // La letra es el resto de dividir el número entre 23, según esta tabla oficial.
 
 const TABLA_LETRAS_DNI = 'TRWAGMYFPDXBNJZSQVHLCKE'
@@ -19,7 +19,7 @@ function formatearDNI(valorEscrito) {
   return digitos
 }
 
-// ── Validación ─────────────────────────────────────────────
+// ── Validación ──
 
 function validarVehiculo(f) {
   const e = {}
@@ -78,7 +78,7 @@ function validarContacto(f) {
   return e
 }
 
-// ── Historial de vehículos del mismo cliente ────────────────
+// ── Historial de vehículos del mismo cliente ──
 
 function HistorialVehiculos({ clienteId, matriculaActual }) {
   const [vehiculos, setVehiculos] = useState(null)
@@ -115,7 +115,7 @@ function HistorialVehiculos({ clienteId, matriculaActual }) {
   )
 }
 
-// ── Editor de datos de contacto ─────────────────────────────
+// ── Editor de datos de contacto ──
 
 function EditorContacto({ vehiculo, onActualizado }) {
   const [editando, setEditando]   = useState(false)
@@ -181,7 +181,7 @@ function EditorContacto({ vehiculo, onActualizado }) {
   )
 }
 
-// ── Buscador de cliente existente por DNI ───────────────────
+// ── Buscador de cliente existente por DNI ──
 // Permite vincular un vehículo nuevo a un cliente que YA está
 // registrado, sin duplicarlo en la base de datos.
 
@@ -231,7 +231,7 @@ function BuscadorClienteExistente({ onEncontrado, onCancelar }) {
   )
 }
 
-// ── Componente principal ────────────────────────────────────
+// ── Componente principal ──
 
 export default function BuscarOCrear({ onConfirmado }) {
   // Estados del flujo:
@@ -341,7 +341,7 @@ export default function BuscarOCrear({ onConfirmado }) {
     setForm({ matricula: matriculaPrevia ?? '', marca: '', modelo: '', anio: '', nombre: '', dni: '', telefono: '', email: '' })
   }
 
-  // ── Vehículo encontrado ──────────────────────────────────
+  // ── Vehículo encontrado ──
 
   if (estado === 'encontrado' && vehiculo) return (
     <div>
@@ -377,7 +377,7 @@ export default function BuscarOCrear({ onConfirmado }) {
     </div>
   )
 
-  // ── Matrícula no encontrada: elegir tipo de alta ─────────
+  // ── Matrícula no encontrada: elegir tipo de alta ──
 
   if (estado === 'nuevo') return (
     <div>
@@ -397,7 +397,7 @@ export default function BuscarOCrear({ onConfirmado }) {
     </div>
   )
 
-  // ── Vehículo nuevo para cliente YA existente ─────────────
+  // ── Vehículo nuevo para cliente YA existente ──
 
   if (estado === 'nuevo-cliente-existe') {
     if (!clienteExistente) return (
@@ -438,7 +438,7 @@ export default function BuscarOCrear({ onConfirmado }) {
     )
   }
 
-  // ── Cliente nuevo + vehículo nuevo ────────────────────────
+  // ── Cliente nuevo + vehículo nuevo ──
 
   if (estado === 'nuevo-cliente-nuevo') return (
     <form onSubmit={crearClienteYVehiculo} noValidate>
@@ -483,7 +483,7 @@ export default function BuscarOCrear({ onConfirmado }) {
     </form>
   )
 
-  // ── Buscador inicial ─────────────────────────────────────
+  // ── Buscador inicial ──
 
   return (
     <>
@@ -510,7 +510,7 @@ export default function BuscarOCrear({ onConfirmado }) {
   )
 }
 
-// ── Auxiliares ───────────────────────────────────────────────
+// ── Auxiliares ──
 
 function Seccion({ label }) {
   return (

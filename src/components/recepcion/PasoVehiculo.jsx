@@ -3,7 +3,7 @@ import { vehiculoApi } from '../../services/api'
 import { ErrorMsg } from '../shared/Shared'
 
 /**
- * Paso 2: busca vehículo por matrícula o registra uno nuevo.
+ * Busca vehículo por matrícula o registra uno nuevo.
  * Props: clienteId, onConfirmado(vehiculo)
  */
 export default function PasoVehiculo({ clienteId, onConfirmado }) {
