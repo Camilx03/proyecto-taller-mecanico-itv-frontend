@@ -19,7 +19,6 @@ El proyecto personaliza el backend para el dominio real de un taller mecánico c
 | 🍳 Vista Cocina | 🔩 Taller (`/taller`) |
 | 📢 Vista Pantalla de recogida | 🔔 Pantalla de Recogida (`/pantalla`) |
 
-> El enunciado indica que las vistas son de ejemplo y pueden variar si el backend fue personalizado.
 
 ---
 
@@ -39,8 +38,6 @@ Funcionalidades adicionales:
 - Cálculo automático de la letra del DNI al escribir los 8 números
 - Validaciones en todos los campos (DNI, nombre, teléfono, email, matrícula, año)
 - Opción de actualizar teléfono/email del cliente desde esta misma vista
-
-> **Nota sobre los servicios:** en el enunciado genérico los servicios (productos) se añaden en la Terminal. En este proyecto, los servicios los añade el mecánico desde la Vista Taller tras revisar el vehículo, ya que en un taller real es el mecánico quien determina qué se realizará. Esta decisión de diseño está justificada por la personalización del backend y el dominio real del sistema. El catálogo de servicios y la gestión de cantidades está completamente implementada, pero en la vista correspondiente al rol correcto.
 
 ---
 
@@ -231,17 +228,6 @@ Abre `http://localhost:5173` en el navegador.
 
 El proxy de Vite redirige automáticamente `/api/*` → `http://localhost:8080/api/*`, por lo que no hace falta configurar CORS en desarrollo.
 
-### Datos iniciales necesarios
-
-Antes de usar el frontend hay que crear al menos un puesto, una categoría y un servicio en el backend. Se pueden crear desde Postman o Swagger (`http://localhost:8080/swagger-ui.html`):
-
-```
-POST /api/puestos     → { "nombre": "Recepción", "tipo": "TALLER" }
-POST /api/puestos     → { "nombre": "Línea ITV",  "tipo": "ITV" }
-POST /api/categorias  → { "nombre": "Mecánica general" }
-POST /api/servicios   → { "nombre": "Cambio de aceite", "precio": 49.90, "categoriaId": 1 }
-```
-
 ---
 
 ## Solución de problemas frecuentes
@@ -281,16 +267,6 @@ CREATE DATABASE IF NOT EXISTS taller_mecanico;
 ### Error `ECONNREFUSED` en la terminal de Vite
 
 No es un error del frontend. Significa que intentó hacer una petición con el backend apagado. Arranca el backend y desaparecerá solo.
-
----
-
-## Suposiciones y limitaciones
-
-- No hay autenticación — cualquier usuario accede a cualquier vista (tal como especifica el enunciado)
-- La búsqueda de clientes por DNI filtra en el frontend sobre la lista completa, ya que el backend no expone un endpoint de búsqueda directa por DNI
-- La eliminación de órdenes completas no está disponible porque el endpoint `DELETE /api/ordenes/{id}` no está expuesto en el backend — solo se pueden quitar servicios individuales de una orden
-- Sin paginación — asumido volumen de datos reducido en el contexto del proyecto
-- El auto-refresco de Taller actualiza los datos en segundo plano sin interrumpir al mecánico ni cerrar las tarjetas abiertas
 
 ---
 
